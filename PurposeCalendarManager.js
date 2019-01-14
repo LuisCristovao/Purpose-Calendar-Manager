@@ -391,7 +391,7 @@ function DetectinputBox(){
 }
 
 //------Main------------
-
+var update_prev_width_height=false;
 window.onload=function(){
     CreatePage()
     
@@ -409,13 +409,21 @@ function Main(){
     
     global_width=html.offsetWidth;
     global_height=html.offsetHeight;
+    //just update prev with/heigth after page resize
+    if(update_prev_width_height){
+        prev_height=global_height
+        prev_width=global_width 
+        update_prev_width_height=false
+    }
+    
+    
     //console.log("with: "+global_width)
     //console.log("height: "+global_height)
     if((prev_width!=global_width || prev_height!=global_height)&& !DetectinputBox()){
         console.log("change")
         CreatePage()
-        prev_height=global_height
-        prev_width=global_width
+        update_prev_width_height=true
+        
         
         
     }
