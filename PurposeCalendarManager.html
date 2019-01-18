@@ -1,6 +1,14 @@
 <html>
     <head>
         <title>Purpose Calendar Manager</title>
+        <style>
+            .block{
+                width:50%;
+                height: 10px;
+                background: black;
+                
+            }
+        </style>
     </head>
     <body align="center">
         <div id="main" align="center">
@@ -9,7 +17,21 @@
                 <tbody>
                     
                 </tbody>
-            </table>    
+            </table>
+            <div class="block"></div>
+            <div id="footer" align="center" style="width:80%;padding-top: 10%;">
+                <table style="font-size:10vw;width:100%;">
+                    <tbody >
+                        <tr>
+                            <td><ul style="list-style-position:inside;padding-left: 0%;"><li style="text-decoration:underline;color:#0183D9">Export PCM</li></ul></td>
+                        </tr>
+                        <tr>
+                            <td><ul style="list-style-position:inside;padding-left: 0%;"><li style="text-decoration:underline;color:#0183D9">Import PCM</li></ul></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
             <!--<h1 style="font-size:10vh">Purpose Calendar Manager</h1>
             <table style="font-size:7vh; padding-left:10%;">
                 <tbody>
@@ -45,6 +67,7 @@
                 </tbody>
             </table>-->
         </div>
+        
     </body>
     <script src="PurposeCalendarManager.js"></script>
 </html>

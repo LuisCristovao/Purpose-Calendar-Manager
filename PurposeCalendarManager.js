@@ -72,7 +72,9 @@ function tablePadding(){
 function SubMenuFontSize(){
     return (global_height>global_width)?"5vh":"8vh"
 }
-
+function footerFontSize(){
+    return (global_height>global_width)?"10vw":"8vh"
+}
 function hyperlinkStyle(color){
     return "text-decoration:underline;color:"+color+";"
 }
@@ -379,7 +381,19 @@ function CreatePage(){
     //Add create new purpose calendar row
     tbody.appendChild(addNewPurposeCalendarRow())
     
+    //create footer
+    //CreateFooter()
 }
+
+function CreateFooter(){
+    var footer=document.getElementById("footer")
+    var innerhtml='<ul style="font-size:'+footerFontSize()+'"><li style="'+hyperlinkStyle('#0183D9')+'">Export PCM</li></ul>'
+    innerhtml+='<ul style="font-size:'+footerFontSize()+'"><li style="'+hyperlinkStyle('#0183D9')+'text-align:center;">Import PCM</li></ul>'
+    footer.innerHTML=innerhtml
+}
+
+
+
 
 function DetectinputBox(){
     if(document.getElementsByTagName("input").length!=0){
