@@ -403,7 +403,30 @@ function CreateFooter(){
     footer.innerHTML=innerhtml*/
 }
 
-
+function exportPCM(ul){
+    var parent=ul.parentElement
+    var prev_html=ul.outerHTML
+    var out_export={}
+    out_export={"PCM":JSON.parse(localStorage['PCM'])}
+    
+    //get storage
+    var storage=JSON.parse(localStorage['PCM'])
+    var data=[]
+    for(key in storage){
+        console.log(key)
+        var dictionary={}
+        dictionary[key]=localStorage[key]
+        data.push(dictionary)
+    }
+    out_export["Data"]=data
+    
+    var f=function(el,html){el.innerHTML=html}
+    
+    
+    copyToClipboard(JSON.stringify(out_export))
+    ul.outerHTML='<ul id="export_pcm" style="list-style-position:inside;padding-left: 0%;"><li style="'+hyperlinkStyle('#2AB30E')+'">Copied Data To ClipBoard</li></ul>'
+    setTimeout(function(){f(parent,prev_html)},1800)
+}
 
 
 function DetectinputBox(){
