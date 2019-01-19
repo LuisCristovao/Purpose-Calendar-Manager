@@ -61,7 +61,7 @@ function titleSize(){
     return (global_height>global_width)?"10vh":"7vw"
 }
 function tableFontSize(){
-    return (global_height>global_width)?"6vh":"8vh"
+    return (global_height>global_width)?"5vh":"8vh"
 }
 function inputFontSize(){
     return (global_height>global_width)?"6vw":"6vh"
@@ -70,10 +70,10 @@ function tablePadding(){
     return (global_height>global_width)?"5%":"0%"
 }
 function SubMenuFontSize(){
-    return (global_height>global_width)?"5vh":"8vh"
+    return (global_height>global_width)?"4vh":"7vh"
 }
 function footerFontSize(){
-    return (global_height>global_width)?"10vw":"8vh"
+    return (global_height>global_width)?"5vh":"8vh"
 }
 function hyperlinkStyle(color){
     return "text-decoration:underline;color:"+color+";"
@@ -382,14 +382,25 @@ function CreatePage(){
     tbody.appendChild(addNewPurposeCalendarRow())
     
     //create footer
-    //CreateFooter()
+    CreateFooter()
 }
 
 function CreateFooter(){
     var footer=document.getElementById("footer")
-    var innerhtml='<ul style="font-size:'+footerFontSize()+'"><li style="'+hyperlinkStyle('#0183D9')+'">Export PCM</li></ul>'
+    
+    //change footer div
+    footer.style.width=(global_height>global_width)?"100%":"50%"
+    
+    
+    //change block
+    footer.children[0].style.height=(global_height>global_width)?"10px":"5px"
+    
+    //change table
+    footer.children[1].style['font-size']=tableFontSize()
+    
+    /*var innerhtml='<ul style="font-size:'+footerFontSize()+'"><li style="'+hyperlinkStyle('#0183D9')+'">Export PCM</li></ul>'
     innerhtml+='<ul style="font-size:'+footerFontSize()+'"><li style="'+hyperlinkStyle('#0183D9')+'text-align:center;">Import PCM</li></ul>'
-    footer.innerHTML=innerhtml
+    footer.innerHTML=innerhtml*/
 }
 
 
