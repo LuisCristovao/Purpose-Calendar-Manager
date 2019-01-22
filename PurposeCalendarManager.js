@@ -388,20 +388,56 @@ function CreatePage(){
 function CreateFooter(){
     var footer=document.getElementById("footer")
     
+    
+    
+    
     //change footer div
-    footer.style.width=(global_height>global_width)?"100%":"50%"
+    //footer.style.width=(global_height>global_width)?"100%":"50%"
     
     
     //change block
-    footer.children[0].style.height=(global_height>global_width)?"10px":"5px"
+    //footer.children[0].style.height=(global_height>global_width)?"10px":"5px"
+    
+    //create Menu Btn
+    CreateFooterMenuBtn(footer)
     
     //change table
-    footer.children[1].style['font-size']=tableFontSize()
+    //footer.children[1].style['font-size']=tableFontSize()
     
     /*var innerhtml='<ul style="font-size:'+footerFontSize()+'"><li style="'+hyperlinkStyle('#0183D9')+'">Export PCM</li></ul>'
     innerhtml+='<ul style="font-size:'+footerFontSize()+'"><li style="'+hyperlinkStyle('#0183D9')+'text-align:center;">Import PCM</li></ul>'
     footer.innerHTML=innerhtml*/
 }
+
+function CreateFooterMenuBtn(footer){
+    footer.innerHTML=""
+    var btn=document.createElement('div')
+    footer.appendChild(btn)
+    btn.setAttribute("style","border: 3pt solid black;border-radius:25px")
+    btn.setAttribute("onclick","footerMenuBtnAction(this)")
+    btn.innerText="Menu"
+}
+
+function footerMenuBtnAction(btn){
+    
+    var out='<table style="font-size:5vh;width:95%;">'
+    out+='<tbody>'
+    out+='<tr>'
+    out+='<td><ul id="export_pcm" style="list-style-position:inside;padding-left: 0%;" onclick="exportPCM(this)"><li style="text-decoration:underline;color:#0183D9">ExportPCM</li></ul></td>'
+    out+='</tr>'
+    out+='<tr>'
+    out+='<td><ul id="import_pcm" style="list-style-position:inside;padding-left: 0%;" onclick="importPCM(this)"><li style="text-decoration:underline;color:#0183D9">Import PCM</li></ul></td>'
+    out+='</tr>'
+    out+='</tbody>'
+    out+='</table>'
+    out+='<div style="position:relative;border:2pt solid black;border-radius:25px;background:lightsteelblue;text-align:center;color:white;width:100%;font-size:2em;" onclick="CreateFooter()">&#10006</div>'
+    btn.innerHTML=out
+    
+    //delete onclick of div in order to not click in 2 buttons at same time
+    btn.setAttribute("onclick","")
+    updatePrevWidthHeight()
+}
+
 
 function exportPCM(ul){
     var parent=ul.parentElement
@@ -420,12 +456,13 @@ function exportPCM(ul){
     }
     out_export["Data"]=data
     
-    var f=function(el,html){el.innerHTML=html}
+    var f=function(el,html){el.innerHTML=html;updatePrevWidthHeight()}
     
     
     copyToClipboard(JSON.stringify(out_export))
     ul.outerHTML='<ul id="export_pcm" style="list-style-position:inside;padding-left: 0%;"><li style="'+hyperlinkStyle('#2AB30E')+'">Copied Data To ClipBoard</li></ul>'
     setTimeout(function(){f(parent,prev_html)},1800)
+    updatePrevWidthHeight()
 }
 
 
