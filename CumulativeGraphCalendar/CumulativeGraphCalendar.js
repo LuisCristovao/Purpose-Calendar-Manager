@@ -1,5 +1,5 @@
 let Simulation = function() {
-    this.graphics = new Nabla.Canvas2D(document.getElementById('canvas'), [[-0.05, 1.05], [-0.05, 1.05]]);
+    this.graphics = new Nabla.Canvas2D(document.getElementById('canvas'), [[-0.07, 1.05], [-0.05, 1.05]]);
     this.nImage = Nabla.ImageIO.loadImage("n.png");
     this.cnImage = Nabla.ImageIO.loadImage("c(n).png");
     this.needDraw = true;
@@ -85,7 +85,7 @@ Simulation.prototype.drawBackGround = function() {
     this.graphics.drawLine([-1, 0], [1, 0], Nabla.Canvas.simpleShader([0, 0, 0, 255]));
     this.graphics.drawLine([0, -1], [0, 1], Nabla.Canvas.simpleShader([0, 0, 0, 255]));
     this.graphics.drawImage(this.nImage, [1, -0.02]);
-    this.graphics.drawImage(this.cnImage, [-0.05, 1]);
+    this.graphics.drawImage(this.cnImage, [-0.07, 1]);
 }
 
 Simulation.prototype.drawCumulativeGraph = function() {
