@@ -87,7 +87,7 @@ Simulation.prototype.drawCumulativeGraph = function() {
         let y = this.cumulateValues[i] / n;
         let yh = this.cumulateValues[i+1] / n;
         this.graphics.drawLine([x, y], [x + h, yh], Nabla.Canvas.simpleShader(color));
-        this.canvasGraph.drawQuad([x, 0], [x + h, 0], [x + h, yh], [x, y], getRandomShader(color));
+        this.graphics.drawQuad([x, 0], [x + h, 0], [x + h, yh], [x, y], getRandomShader(color));
     }
 }
 
