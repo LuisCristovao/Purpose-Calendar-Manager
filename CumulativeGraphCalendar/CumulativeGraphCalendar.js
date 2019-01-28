@@ -2,11 +2,10 @@ let Simulation = function() {
     this.graphics = new Nabla.Canvas2D(document.getElementById('canvas'), [[-0.05, 1.05], [-0.05, 1.05]]);
     this.nImage = Nabla.ImageIO.loadImage("n.png");
     this.cnImage = Nabla.ImageIO.loadImage("c(n).png");
-    this.mouse = [0, 0];
+    this.mouseInSpace = [];
     let calendarData = JSON.parse(window.localStorage[window.location.search.substring(1)]);
     let valuesStream = Nabla.Stream.of(calendarData)
-                                   .flatMap(x => Nabla.Stream.of(Object.values(x.days)))
-                                   .map(x => Math.random());
+                                   .flatMap(x => Nabla.Stream.of(Object.values(x.days)));
     this.cumulateValues = valuesStream.reduce([0], (e, v) => {
         e.push(e[e.length-1] + v);
         return e;
@@ -24,28 +23,28 @@ function getDashedLineShader(color) {
         });
 };
 
+function getStringShader() {
+    return ctx => {
+        ctx.fillStyle = "black";
+        ctx.font = "bold 16px Arial";
+    }
+}
+
 Simulation.prototype.baseMouseAction = function(mouse) {
-    let mouseInSpace = this.graphics.inverseTransform(mouse);
-    this.graphics.drawCircle(mouseInSpace, 0.05, Nabla.Canvas.simpleShader([255,0,0,255]));
-    this.graphics.drawLine([mouseInSpace[0], 0], [0, mouseInSpace[1]], getDashedLineShader([255, 0, 0, 255]));
-    this.graphics.drawLine([0, mouseInSpace[1]], [mouseInSpace[0], 0], getDashedLineShader([255, 0, 0, 255]));
+    this.mouseInSpace = this.graphics.inverseTransform(mouse);
 }
 
 Simulation.prototype.mouseMove = function(e) {
     let rect = this.graphics.canvas.getBoundingClientRect();
     let mx = (e.clientX - rect.left), my = (e.clientY - rect.top);
-    this.mouse[0] = my;
-    this.mouse[1] = mx;
-    this.baseMouseAction(this.mouse);
+    this.baseMouseAction([my, mx]);
 }
 
 
 Simulation.prototype.touchMove = function(e) {
     let rect = this.graphics.canvas.getBoundingClientRect();
     let mx = (e.touches[0].clientX - rect.left), my = (e.touches[0].clientY - rect.top);
-    this.mouse[0] = my;
-    this.mouse[1] = mx;
-    this.baseMouseAction(this.mouse);
+    this.baseMouseAction([my, mx]);
 }
 
 Simulation.prototype.reSizeCanvas = function() {
@@ -82,12 +81,26 @@ Simulation.prototype.drawCumulativeGraph = function() {
     }
 }
 
+Simulation.prototype.mouseDraw = function() {
+    if(!this.mouseInSpace || this.mouseInSpace.length == 0) return;
+    let n = this.cumulateValues.length - 1;
+    var x = this.mouseInSpace[0];
+    x = Math.max(Math.min(x, 1), 0);
+    let index = Math.floor(x * (n - 1));
+    let y = this.cumulateValues[index] / n;
+    this.graphics.drawCircle([x, y], 0.005, Nabla.Canvas.simpleShader([255, 0, 0, 255]));
+    this.graphics.drawLine([x, 0], [x, y], getDashedLineShader([255, 0, 0, 255]));
+    this.graphics.drawString([x, -0.05], `${x.toFixed(2)}`, getStringShader());
+    this.graphics.drawLine([0, y], [x, y], getDashedLineShader([255, 0, 0, 255]));
+    this.graphics.drawString([-0.05, y], `${y.toFixed(2)}`, getStringShader());
+}
+
 Simulation.prototype.draw = function() {
-    console.log("drawing");
     this.reSizeCanvas();
     this.graphics.clearImage([255, 255, 255, 255]);
     this.drawBackGround();
     this.drawCumulativeGraph();
+    this.mouseDraw();
     this.graphics.paintImage();
     requestAnimationFrame(() => this.draw());
 }
