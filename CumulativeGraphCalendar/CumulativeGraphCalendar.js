@@ -2,6 +2,7 @@ let Simulation = function() {
     this.graphics = new Nabla.Canvas2D(document.getElementById('canvas'), [[-0.05, 1.05], [-0.05, 1.05]]);
     this.nImage = Nabla.ImageIO.loadImage("n.png");
     this.cnImage = Nabla.ImageIO.loadImage("c(n).png");
+    this.needDraw = true;
     this.mouseInSpace = [];
     let calendarData = JSON.parse(window.localStorage[window.location.search.substring(1)]);
     let valuesStream = Nabla.Stream.of(calendarData)
@@ -39,6 +40,7 @@ function getRandomShader(color) {
 }
 
 Simulation.prototype.baseMouseAction = function(mouse) {
+    this.needDraw = true;
     this.mouseInSpace = this.graphics.inverseTransform(mouse);
 }
 
@@ -106,12 +108,15 @@ Simulation.prototype.mouseDraw = function() {
 }
 
 Simulation.prototype.draw = function() {
-    this.reSizeCanvas();
-    this.graphics.clearImage([255, 255, 255, 255]);
-    this.drawBackGround();
-    this.drawCumulativeGraph();
-    this.mouseDraw();
-    this.graphics.paintImage();
+    if(this.needDraw) {
+        this.reSizeCanvas();
+        this.graphics.clearImage([255, 255, 255, 255]);
+        this.drawBackGround();
+        this.drawCumulativeGraph();
+        this.mouseDraw();
+        this.graphics.paintImage();
+        this.needDraw = false;
+    }
     requestAnimationFrame(() => this.draw());
 }
 
