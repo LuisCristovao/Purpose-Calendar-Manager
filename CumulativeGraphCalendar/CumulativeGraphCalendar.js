@@ -4,13 +4,21 @@ let Simulation = function() {
     this.cnImage = Nabla.ImageIO.loadImage("c(n).png");
     this.needDraw = true;
     this.mouseInSpace = [];
-    let calendarData = JSON.parse(window.localStorage[window.location.search.substring(1)]);
-    let valuesStream = Nabla.Stream.of(calendarData)
-                                   .flatMap(x => Nabla.Stream.of(Object.values(x.days)));
-    this.cumulateValues = valuesStream.reduce([0], (e, v) => {
-        e.push(e[e.length-1] + v);
-        return e;
-    })
+    let data = window.localStorage[window.location.search.substring(1)];
+    if(data) {
+        let calendarData = JSON.parse(data);
+        let valuesStream = Nabla.Stream.of(calendarData)
+                                       .flatMap(x => Nabla.Stream.of(Object.values(x.days)));
+        this.cumulateValues = valuesStream.reduce([0], (e, v) => {
+            e.push(e[e.length-1] + v);
+            return e;
+        })
+    } else {
+        this.cumulateValues = Nabla.Stream.range(0,365).map(x => false).reduce([0], (e, v) => {
+            e.push(e[e.length - 1] + v);
+            return e;
+        })
+    }
 }
 
 function getDashedLineShader(color) {
