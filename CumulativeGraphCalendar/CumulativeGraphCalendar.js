@@ -1,16 +1,24 @@
 let Simulation = function() {
-    this.graphics = new Nabla.Canvas2D(document.getElementById('canvas'), [[-0.05, 1.05], [-0.05, 1.05]]);
+    this.graphics = new Nabla.Canvas2D(document.getElementById('canvas'), [[-0.07, 1.05], [-0.05, 1.05]]);
     this.nImage = Nabla.ImageIO.loadImage("n.png");
     this.cnImage = Nabla.ImageIO.loadImage("c(n).png");
     this.needDraw = true;
     this.mouseInSpace = [];
-    let calendarData = JSON.parse(window.localStorage[window.location.search.substring(1)]);
-    let valuesStream = Nabla.Stream.of(calendarData)
-                                   .flatMap(x => Nabla.Stream.of(Object.values(x.days)));
-    this.cumulateValues = valuesStream.reduce([0], (e, v) => {
-        e.push(e[e.length-1] + v);
-        return e;
-    })
+    let data = window.localStorage[window.location.search.substring(1)];
+    if(data) {
+        let calendarData = JSON.parse(data);
+        let valuesStream = Nabla.Stream.of(calendarData)
+                                       .flatMap(x => Nabla.Stream.of(Object.values(x.days)));
+        this.cumulateValues = valuesStream.reduce([0], (e, v) => {
+            e.push(e[e.length-1] + v);
+            return e;
+        })
+    } else {
+        this.cumulateValues = Nabla.Stream.range(0,365).map(x => false).reduce([0], (e, v) => {
+            e.push(e[e.length - 1] + v);
+            return e;
+        })
+    }
 }
 
 function getDashedLineShader(color) {
@@ -77,7 +85,7 @@ Simulation.prototype.drawBackGround = function() {
     this.graphics.drawLine([-1, 0], [1, 0], Nabla.Canvas.simpleShader([0, 0, 0, 255]));
     this.graphics.drawLine([0, -1], [0, 1], Nabla.Canvas.simpleShader([0, 0, 0, 255]));
     this.graphics.drawImage(this.nImage, [1, -0.02]);
-    this.graphics.drawImage(this.cnImage, [-0.05, 1]);
+    this.graphics.drawImage(this.cnImage, [-0.07, 1]);
 }
 
 Simulation.prototype.drawCumulativeGraph = function() {
