@@ -30,6 +30,14 @@ function getStringShader() {
     }
 }
 
+function getRandomShader(color) {
+    (x, element, canvas) => {
+        let y = canvas.inverseTransform(x);
+        let b = x[0] % 2 == x[1] % 2;
+        if(b) canvas.drawPxl(x, color);
+    }
+}
+
 Simulation.prototype.baseMouseAction = function(mouse) {
     this.mouseInSpace = this.graphics.inverseTransform(mouse);
 }
@@ -71,13 +79,15 @@ Simulation.prototype.drawBackGround = function() {
 }
 
 Simulation.prototype.drawCumulativeGraph = function() {
+    let color = [0, 255, 0, 255];
     let n = this.cumulateValues.length - 1;
     let h = 1 / (n - 1);
     for (let i = 0; i < n; i++) {
         let x = i / (n - 1);
         let y = this.cumulateValues[i] / n;
         let yh = this.cumulateValues[i+1] / n;
-        this.graphics.drawLine([x, y], [x + h, yh], Nabla.Canvas.simpleShader([0,255,0,255]));
+        this.graphics.drawLine([x, y], [x + h, yh], Nabla.Canvas.simpleShader(color));
+        this.canvasGraph.drawQuad([x, 0], [x + h, 0], [x + h, yh], [x, y], getRandomShader(color));
     }
 }
 
