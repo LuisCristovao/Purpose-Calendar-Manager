@@ -31,7 +31,7 @@ function getStringShader() {
 }
 
 function getRandomShader(color) {
-    (x, element, canvas) => {
+    return (x, element, canvas) => {
         let y = canvas.inverseTransform(x);
         let b = x[0] % 2 == x[1] % 2;
         if(b) canvas.drawPxl(x, color);
