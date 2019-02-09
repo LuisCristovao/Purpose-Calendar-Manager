@@ -413,28 +413,41 @@ function CreateFooterMenuBtn(footer){
     footer.innerHTML=""
     var btn=document.createElement('div')
     footer.appendChild(btn)
-    btn.setAttribute("style","border: 3pt solid black;border-radius:25px")
+    btn.setAttribute("style","border: 3pt solid black;border-radius:25px;font-size:"+footerFontSize()+";cursor:pointer;")
     btn.setAttribute("onclick","footerMenuBtnAction(this)")
     btn.innerText="Menu"
 }
 
 function footerMenuBtnAction(btn){
     
-    var out='<table style="font-size:5vh;width:95%;">'
+    
+    var xfont_size=function(){
+        return (global_height>global_width)?"0.5em":"8vh"
+    }
+    var outer_width=function(){
+        return (global_height>global_width)?"100%":"60%"
+    }
+    
+    var out='<table style="font-size:'+footerFontSize()+';width:95%;">'
     out+='<tbody>'
     out+='<tr>'
-    out+='<td><ul id="export_pcm" style="list-style-position:inside;padding-left: 0%;" onclick="exportPCM(this)"><li style="text-decoration:underline;color:#0183D9">ExportPCM</li></ul></td>'
+    out+='<td><ul id="export_pcm" style="list-style-position:inside;padding-left: 0%;" onclick="exportPCM(this)"><li style="text-decoration:underline;color:#0183D9;cursor:pointer;">ExportPCM</li></ul></td>'
     out+='</tr>'
     out+='<tr>'
-    out+='<td><ul id="import_pcm" style="list-style-position:inside;padding-left: 0%;" onclick="importPCM(this)"><li style="text-decoration:underline;color:#0183D9">Import PCM</li></ul></td>'
+    out+='<td><ul id="import_pcm" style="list-style-position:inside;padding-left: 0%;" onclick="importPCM(this)"><li style="text-decoration:underline;color:#0183D9;cursor:pointer;">Import PCM</li></ul></td>'
     out+='</tr>'
     out+='</tbody>'
     out+='</table>'
-    out+='<div style="position:relative;border:2pt solid black;border-radius:25px;background:lightsteelblue;text-align:center;color:white;width:100%;font-size:2em;" onclick="CreateFooter()">&#10006</div>'
+    out+='<div style="position:relative;border:2pt solid black;border-radius:25px;background:lightsteelblue;text-align:center;color:white;width:100%;font-size:'+xfont_size()+';cursor:pointer;" onclick="CreateFooter()">&#10006</div>'
     btn.innerHTML=out
+    
+    //change div width
+    btn.style.width=outer_width();
     
     //delete onclick of div in order to not click in 2 buttons at same time
     btn.setAttribute("onclick","")
+    //stop cursor pointer
+    btn.style.cursor="";
     updatePrevWidthHeight()
 }
 
