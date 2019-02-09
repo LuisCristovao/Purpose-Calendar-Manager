@@ -42,12 +42,12 @@ function CalculateDaysSelected(){
     localStorage["PCM"]=JSON.stringify(pcm)
 }  
     
-function range(initial,end){
-    var array=[]
-    for(var i=initial;i<end;i++){
+function range(initial, end){
+    var array = [];
+    for(var i=initial; i< end; i++){
         array.push(i)
     }
-    return array
+    return array;
 }
 
 function Highlight(el){
@@ -96,21 +96,28 @@ function removeSubMenu(el){
     new_html+="<td><ul>"+all_calendars[el.innerText.split("\n")[0]]+"</ul></td>"
     //changing row
     el.parentElement.parentElement.innerHTML=new_html
-    
 }
+
 function addSubMenu(el){
     
     //el.parentElement.parentElement.innerHTML="<td colspan='2'><ul><li>ola</li></ul></td>"
     
     //change array to map of option_name:function_to_execute()
-    var map={"Enter Calendar":"enterCalendar(this)","Import Calendar":"importCalendar(this)","Export Calendar":"exportCalendar(this)","Reset Calendar":"resetCalendar(this)","Remove Calendar":"removeCalendar(this)"}
+    var map = {
+        "Enter Calendar":"enterCalendar(this)",
+        "Import Calendar":"importCalendar(this)",
+        "Export Calendar":"exportCalendar(this)",
+        "Cumulative Graph": "enterGraph(this)",
+        "Reset Calendar":"resetCalendar(this)",
+        "Remove Calendar":"removeCalendar(this)"
+    }
     
     var new_html="<td colspan='2'><ul>"+el.innerHTML.split("</ul")[0]+"<div>"
 
     for(var key in map){
-        new_html+='<ul onclick="'+map[key]+'"><li style="'+hyperlinkStyle('#0183D9')+';cursor:pointer;font-size:'+SubMenuFontSize()+'">'+key+'</li></ul>'
+        new_html += `<ul onclick= ${map[key]}><li style=${hyperlinkStyle('#0183D9')};cursor:pointer;font-size:${SubMenuFontSize()}>${key}</li></ul>`;
     }
-    new_html+="</ul></div></td>"
+    new_html += "</ul></div></td>";
     //changing row
     el.parentElement.parentElement.innerHTML=new_html
     
@@ -123,10 +130,14 @@ function addSubMenu(el){
     li*/
 }
 
+function enterGraph(el) {
+    var calendar = el.parentElement.parentElement.innerText.split("\n")[0];
+    window.location.href = `CumulativeGraphCalendar/CumulativeGraphCalendar.html?${calendar}`;
+}
 
 function enterCalendar(el){
     var calendar=el.parentElement.parentElement.innerText.split("\n")[0];
-    window.location.href="PurposeCalendar.html?"+calendar
+    window.location.href=`PurposeCalendar.html?${calendar}`;
 }
 function resetCalendar(el){
     var calendar=el.parentElement.parentElement.innerText.split("\n")[0];
