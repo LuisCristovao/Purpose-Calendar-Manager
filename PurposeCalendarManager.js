@@ -87,9 +87,11 @@ function hyperlinkStyle(color){
 
 function updatePrevWidthHeight(){
      //update prev_width and height to not use createPage()
-    html=document.getElementsByTagName("html")[0];
-    global_width=html.offsetWidth;
-    global_height=html.offsetHeight;
+    //html=document.getElementsByTagName("html")[0];
+    //global_width=html.offsetWidth;
+    //global_height=html.offsetHeight;
+    global_height=screen.availHeight;
+    global_width=screen.availWidth;
     prev_width=global_width;
     prev_height=global_height;
 }
@@ -571,9 +573,11 @@ var update_prev_width_height=false;
 window.onload=function(){
     CreatePage()
     
-    html=document.getElementsByTagName("html")[0];
-    global_width=html.offsetWidth;
-    global_height=html.offsetHeight;
+    //html=document.getElementsByTagName("html")[0];
+    //global_width=html.offsetWidth;
+    //global_height=html.offsetHeight;
+    global_width=screen.availWidth
+    global_height=screen.availHeight
     prev_width=global_width;
     prev_height=global_height;
     requestAnimationFrame(Main)
@@ -581,10 +585,10 @@ window.onload=function(){
 
 
 function Main(){
-    var html=document.getElementsByTagName("html")[0];
+    //var html=document.getElementsByTagName("html")[0];
     
-    global_width=html.offsetWidth;
-    global_height=html.offsetHeight;
+    global_width=screen.availWidth
+    global_height=screen.availHeight
     //just update prev with/heigth after page resize
     if(update_prev_width_height){
         prev_height=global_height
