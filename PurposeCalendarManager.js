@@ -433,13 +433,13 @@ function footerMenuBtnAction(btn){
     
     
     var xfont_size=function(){
-        return (global_height>global_width)?"0.5em":"8vh"
+        return (global_height>global_width)?"0.5em":"0.7em"
     }
     var outer_width=function(){
         return (global_height>global_width)?"100%":"60%"
     }
     
-    var out='<table style="font-size:'+footerFontSize()+';width:95%;">'
+    var out='<table style="font-size:'+footerFontSize()+';width:60%;">'
     out+='<tbody>'
     out+='<tr>'
     out+='<td><ul id="export_pcm" style="list-style-position:inside;padding-left: 0%;" onclick="exportPCM(this)"><li style="text-decoration:underline;color:#0183D9;cursor:pointer;">ExportPCM</li></ul></td>'
