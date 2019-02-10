@@ -442,10 +442,10 @@ function footerMenuBtnAction(btn){
     var out='<table style="font-size:'+footerFontSize()+';width:60%;">'
     out+='<tbody>'
     out+='<tr>'
-    out+='<td><ul id="export_pcm" style="list-style-position:inside;padding-left: 0%;" onclick="exportPCM(this)"><li style="text-decoration:underline;color:#0183D9;cursor:pointer;">ExportPCM</li></ul></td>'
+    out+='<td><ul id="export_pcm" style="list-style-position:inside;padding-left: 0%;" onclick="exportPCM(this)"><li style="text-decoration:underline;color:#0183D9;cursor:pointer;">Export PCM</li></ul></td>'
     out+='</tr>'
     out+='<tr>'
-    out+='<td><ul id="import_pcm" style="list-style-position:inside;padding-left: 0%;" onclick="openInput(this,\'Insert JSON\',\'importPCMKeyPress(event,this)\',okBtn(\'importPCMBtn(this)\'),crossBtn(\'undoCreatePC(this)\'))"><li style="text-decoration:underline;color:#0183D9;cursor:pointer;">Import PCM</li></ul></td>'
+    out+='<td><ul id="import_pcm" style="list-style-position:inside;padding-left: 0%;" onclick="openInput(this,\'Insert JSON\',\'importPCMKeyPress(event,this)\',okBtn(\'importPCMBtn(this)\'),crossBtn(\'undoImport(this)\'))"><li style="text-decoration:underline;color:#0183D9;cursor:pointer;">Import PCM</li></ul></td>'
     out+='</tr>'
     out+='</tbody>'
     out+='</table>'
@@ -488,6 +488,12 @@ function exportPCM(ul){
     setTimeout(function(){f(parent,prev_html)},1800)
     updatePrevWidthHeight()
 }
+function undoImport(btn){
+    var parent=btn.parentElement.parentElement.parentElement
+    parent.innerHTML='<ul id="import_pcm" style="list-style-position:inside;padding-left: 0%;" onclick="openInput(this,\'Insert JSON\',\'importPCMKeyPress(event,this)\',okBtn(\'importPCMBtn(this)\'),crossBtn(\'undoImport(this)\'))"><li style="text-decoration:underline;color:#0183D9;cursor:pointer;">Import PCM</li></ul>'
+    updatePrevWidthHeight()
+}
+
 function importPCMKeyPress(event,input){
     //enter key
     if(event.keyCode==13){
