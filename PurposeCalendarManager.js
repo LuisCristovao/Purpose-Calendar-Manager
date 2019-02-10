@@ -445,7 +445,7 @@ function footerMenuBtnAction(btn){
     out+='<td><ul id="export_pcm" style="list-style-position:inside;padding-left: 0%;" onclick="exportPCM(this)"><li style="text-decoration:underline;color:#0183D9;cursor:pointer;">ExportPCM</li></ul></td>'
     out+='</tr>'
     out+='<tr>'
-    out+='<td><ul id="import_pcm" style="list-style-position:inside;padding-left: 0%;" onclick="openInput(this,\'Insert PC Name\',\'createPC(event,this)\',okBtn(\'importPCM()\'),crossBtn(\'undoCreatePC(this)\'))"><li style="text-decoration:underline;color:#0183D9;cursor:pointer;">Import PCM</li></ul></td>'
+    out+='<td><ul id="import_pcm" style="list-style-position:inside;padding-left: 0%;" onclick="openInput(this,\'Insert JSON\',\'createPC(event,this)\',okBtn(\'importPCMBtn(this)\'),crossBtn(\'undoCreatePC(this)\'))"><li style="text-decoration:underline;color:#0183D9;cursor:pointer;">Import PCM</li></ul></td>'
     out+='</tr>'
     out+='</tbody>'
     out+='</table>'
@@ -489,8 +489,12 @@ function exportPCM(ul){
     updatePrevWidthHeight()
 }
 
-function importPCM(){
-    alert("Fogo")
+function importPCMBtn(btn){
+    var parent=btn.parentElement
+    var input=parent.children[0]    
+    console.log(input.value)
+    
+    importPCM(input.value);
 //    var parent=ul.parentElement
 //    var prev_html=ul.outerHTML
 //    var key_press_function=function(ul){
@@ -503,9 +507,17 @@ function importPCM(){
 //        
 //    }
 //    openInput(ul,"Insert JSON",on_key_press_function,okBtn_function,crossBtn_function)
-//    updatePrevWidthHeight()
+    updatePrevWidthHeight()
 }
-
+function importPCM(json_data){
+    json_data=JSON.parse(json_data)  
+    localStorage["PCM"]=JSON.stringify(json_data["PCM"])
+    for(key in json_data["Data"]){
+        //as it seems locaStorage can store actual js dictionary
+        localStorage[key]=json_data["Data"][key]
+    }
+    window.location.reload();
+}
 
 function DetectinputBox(){
     if(document.getElementsByTagName("input").length!=0){
