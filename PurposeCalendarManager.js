@@ -12,13 +12,19 @@ var all_calendars=getCalendars()
 
 
 function getCalendars(){
-    if(localStorage["PCM"]!=null){
-        CalculateDaysSelected()
-        return JSON.parse(localStorage["PCM"])
-    }
-    else{
-        localStorage["PCM"]=JSON.stringify({})
-        return {}
+    try{
+        
+        if(localStorage["PCM"]!=null){
+            CalculateDaysSelected()
+            return JSON.parse(localStorage["PCM"])
+        }
+        else{
+            localStorage["PCM"]=JSON.stringify({})
+            return {}
+        }
+    }catch{
+            localStorage["PCM"]=JSON.stringify({})
+            return {}
     }
 }    
 function CalculateDaysSelected(){
@@ -534,7 +540,14 @@ function importPCMBtn(btn){
     
     updatePrevWidthHeight()
 }
+function deleteDB(){
+    for(key in JSON.parse(localStorage["PCM"])){
+        delete localStorage[key]
+    }
+}
 function importPCM(json_data){
+    //delete previous storage
+    deleteDB()
     json_data=JSON.parse(json_data)  
     localStorage["PCM"]=JSON.stringify(json_data["PCM"])
     for(key in json_data["Data"]){
