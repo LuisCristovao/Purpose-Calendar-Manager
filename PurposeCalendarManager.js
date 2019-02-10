@@ -445,7 +445,7 @@ function footerMenuBtnAction(btn){
     out+='<td><ul id="export_pcm" style="list-style-position:inside;padding-left: 0%;" onclick="exportPCM(this)"><li style="text-decoration:underline;color:#0183D9;cursor:pointer;">ExportPCM</li></ul></td>'
     out+='</tr>'
     out+='<tr>'
-    out+='<td><ul id="import_pcm" style="list-style-position:inside;padding-left: 0%;" onclick="importPCM(this)"><li style="text-decoration:underline;color:#0183D9;cursor:pointer;">Import PCM</li></ul></td>'
+    out+='<td><ul id="import_pcm" style="list-style-position:inside;padding-left: 0%;" onclick="openInput(this,\'Insert PC Name\',\'createPC(event,this)\',okBtn(\'importPCM()\'),crossBtn(\'undoCreatePC(this)\'))"><li style="text-decoration:underline;color:#0183D9;cursor:pointer;">Import PCM</li></ul></td>'
     out+='</tr>'
     out+='</tbody>'
     out+='</table>'
@@ -489,20 +489,21 @@ function exportPCM(ul){
     updatePrevWidthHeight()
 }
 
-function importPCM(ul){
-    var parent=ul.parentElement
-    var prev_html=ul.outerHTML
-    var key_press_function=function(ul){
-        
-    }
-    var okBtn_function=function(ul){
-        
-    }
-    var cross_btn_function=function(ul){
-        
-    }
-    openInput(ul,"Insert JSON",on_key_press_function,okBtn_function,crossBtn_function)
-    updatePrevWidthHeight()
+function importPCM(){
+    alert("Fogo")
+//    var parent=ul.parentElement
+//    var prev_html=ul.outerHTML
+//    var key_press_function=function(ul){
+//        
+//    }
+//    var okBtn_function=function(ul){
+//        
+//    }
+//    var cross_btn_function=function(ul){
+//        
+//    }
+//    openInput(ul,"Insert JSON",on_key_press_function,okBtn_function,crossBtn_function)
+//    updatePrevWidthHeight()
 }
 
 
