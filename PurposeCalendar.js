@@ -7,10 +7,29 @@ var body=document.getElementById("body");
 //var purpose=document.title;
 //purpose="Ola"
 
+
+
+  function getLastDayOfEachMonth(){
+    var out={}
+    var date=new Date()
+    var year=date.getFullYear()
+    for(i=1;i<13;i++){
+        var month_date=new Date(year,i,0)
+        var last_day=month_date.getDate()
+        out[i]=last_day
+
+    }
+    return out
+}
+
+  
+
 var months=["Jan","Fev","Mar","Apr","May","Jun","Jul","Ago","Set","Out","Nov","Dez"]
-var days={1:31,2:28,3:31,4:30,5:31,6:30,7:31,8:30,9:31,10:31,11:30,12:31}
+//var days={1:31,2:28,3:31,4:30,5:31,6:30,7:31,8:30,9:31,10:31,11:30,12:31}
+var days=getLastDayOfEachMonth()
 var lines=31
 var columns=12
+
 
 class LocalStorageManager{
     
