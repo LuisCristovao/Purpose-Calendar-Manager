@@ -286,36 +286,7 @@ function animation(btn,index){
 }
 
 
-window.onload=function(){
-    //alert("hello");
-    
-    
-    
-    
-    global_width=html.offsetWidth;
-    global_height=html.offsetHeight;
-    prev_width=global_width;
-    prev_height=global_height;
-    
-    CreateHeader()    
-    CreateColumns(lines,columns)
-    
-    //setStyle(body,{"width":global_width,"height":global_height,"top":"0px","left":"0px","position":"absolute"})
-    var date=new Date()
-    var d=date.getDate()
-    var m=date.getMonth()+1
-    
-    var id=d+"/"+m
-     //go to actual button in page
-    window.location.href="#"+id
-    requestAnimationFrame(Main);
-}
 
-//Main-------------------
-
-
-var lsm=new LocalStorageManager();
-var index=0;
 
 function Main(){
     var html=document.getElementById("body");
@@ -343,3 +314,47 @@ function Main(){
     //setTimeout(Main,100);
     requestAnimationFrame(Main)
 }
+//Main-------------------
+var lsm=new LocalStorageManager();
+var index=0;
+
+window.onload=function(){
+    //alert("hello");
+    
+    global_width=html.offsetWidth;
+    global_height=html.offsetHeight;
+    prev_width=global_width;
+    prev_height=global_height;
+    
+    CreateHeader()    
+    CreateColumns(lines,columns)
+    
+    //setStyle(body,{"width":global_width,"height":global_height,"top":"0px","left":"0px","position":"absolute"})
+    var date=new Date()
+    var d=date.getDate()
+    var m=date.getMonth()+1
+    
+    var id=d+"/"+m
+     //go to actual button in page
+    window.location.href="#"+id
+    requestAnimationFrame(Main);
+}
+// register service worker
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js', { scope: './' }).then(function(reg) {
+  
+      if(reg.installing) {
+        console.log('Service worker installing');
+      } else if(reg.waiting) {
+        console.log('Service worker installed');
+      } else if(reg.active) {
+        console.log('Service worker active');
+      }
+  
+    }).catch(function(error) {
+      // registration failed
+      console.log('Registration failed with ' + error);
+    });
+  }
+
