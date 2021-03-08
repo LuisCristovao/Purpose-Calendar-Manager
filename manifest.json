@@ -1,0 +1,36 @@
+{
+    "name": "Purpose Calendar Manager",
+    "short_name": "PCM",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#fff",
+    "description": "Purpose Calendar Manager",
+    "icons": [
+      {
+        "src": "favicon48.png",
+        "sizes": "48x48",
+        "type": "image/png"
+      },
+      {
+        "src": "favicon512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      },
+      {
+        "src": "favicon256.png",
+        "sizes": "256x256",
+        "type": "image/png"
+      },
+      {
+        "src": "favicon128.png",
+        "sizes": "128x128",
+        "type": "image/png"
+      },
+      {
+        "src": "favicon72.png",
+        "sizes": "72x72",
+        "type": "image/png"
+      }
+    ]
+  }
+  

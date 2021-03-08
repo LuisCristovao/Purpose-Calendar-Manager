@@ -10,7 +10,11 @@ self.addEventListener('install', function(event) {
             'CumulativeGraphCalendar/CumulativeGraphCalendar.html',
             'CumulativeGraphCalendar/CumulativeGraphCalendar.js',
             'CumulativeGraphCalendar/n.png',
-            'favicon.png',
+            'favicon48.png',
+            'favicon72.png',
+            'favicon128.png',
+            'favicon256.png',
+            'favicon512.png',
             'index.html',
             'sw.js'
         ]);
