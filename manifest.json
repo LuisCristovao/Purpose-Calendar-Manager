@@ -1,7 +1,7 @@
 {
     "name": "Purpose Calendar Manager",
     "short_name": "PCM",
-    "start_url": ".",
+    "start_url": "./PurposeCalendarManager.html",
     "display": "standalone",
     "background_color": "#fff",
     "description": "Purpose Calendar Manager",
