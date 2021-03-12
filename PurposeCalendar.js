@@ -146,10 +146,10 @@ function btnChangeColor(btn){
     if(btn.getAttribute("isActive")=="true"){
         btn.style.background="hsl(0,100%,100%)"
     }
-    else{
+    /* else{
         var color=btn.style.border.split(" ")[2]+btn.style.border.split(" ")[3]+btn.style.border.split(" ")[4]
         btn.style.background=color
-    }
+    } */
 }
 
 function btnClick(btn){
@@ -171,7 +171,14 @@ function btnClick(btn){
     }
 }
 
-
+function IsSunday(day,month){
+    const year=new Date().getFullYear()
+    const day_to_check=new Date(year,month,day)
+    if(day_to_check.getDay()==0){// is sunday?
+        return true
+    }
+    return false
+}
 
 function CreateButton(_text,_color,_month){
     
@@ -179,9 +186,11 @@ function CreateButton(_text,_color,_month){
     //btn.setAttribute("valign","center")
     var width_height=80;
     var middle=(100-width_height)/2;
-    
+   
     setStyle(btn,{"position":"inherit","background":"hsla("+_color+",100%,60%,1)","border-radius":"50%","width":width_height+"%","height":width_height+"%","top":middle+"%","left":middle+"%","border":"5px solid hsla("+_color+",100%,60%,1)","cursor":"pointer"})
-    
+    if(IsSunday(_text,_month)){
+        btn.style.border="7px solid hsla("+_color+",100%,35%,1)"
+    }
     var text=document.createElement("p")
     
     text.appendChild(document.createTextNode(_text))
@@ -250,6 +259,7 @@ function CreateColumns(lines, columns){
             column.setAttribute("align","center")
             
             if(i<days[j+1]){
+                
                 var btn=CreateButton(i+1,j*20,j)
                 column.appendChild(btn)
             }
