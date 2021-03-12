@@ -189,7 +189,7 @@ function CreateButton(_text,_color,_month){
    
     setStyle(btn,{"position":"inherit","background":"hsla("+_color+",100%,60%,1)","border-radius":"50%","width":width_height+"%","height":width_height+"%","top":middle+"%","left":middle+"%","border":"5px solid hsla("+_color+",100%,60%,1)","cursor":"pointer"})
     if(IsSunday(_text,_month)){
-        btn.style.border=`${(global_height>global_width)?'20px':'5px'} solid hsla(${_color},100%,35%,1)`
+        btn.style.border=`${(global_height>global_width)?'12px':'5px'} solid hsla(${_color},100%,35%,1)`
     }
     var text=document.createElement("p")
     
