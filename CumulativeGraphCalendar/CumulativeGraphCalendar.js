@@ -21,11 +21,11 @@ let Simulation = function() {
     }
 }
 
-function getDashedLineShader(color) {
+function getDashedLineShader(color, distance) {
     return Nabla.Canvas.interpolateLineShader(
         (x, line, canvas, t) => {
             var p = 0.1;
-            var isDash = (t % p) < (p / 2) ? true : false;
+            var isDash = (t * distance) % (p * distance) < p / 2 ? true : false;
             if (isDash) {
                 canvas.drawPxl(x, color);
             }
@@ -109,9 +109,9 @@ Simulation.prototype.mouseDraw = function() {
     let index = Math.floor(x * (n - 1));
     let y = this.cumulateValues[index] / n;
     this.graphics.drawCircle([x, y], 0.005, Nabla.Canvas.simpleShader([255, 0, 0, 255]));
-    this.graphics.drawLine([x, 0], [x, y], getDashedLineShader([255, 0, 0, 255]));
+    this.graphics.drawLine([x, 0], [x, y], getDashedLineShader([255, 0, 0, 255], y));
     this.graphics.drawString([x, -0.05], `${x.toFixed(2)}`, getStringShader());
-    this.graphics.drawLine([0, y], [x, y], getDashedLineShader([255, 0, 0, 255]));
+    this.graphics.drawLine([0, y], [x, y], getDashedLineShader([255, 0, 0, 255], x));
     this.graphics.drawString([-0.05, y], `${y.toFixed(2)}`, getStringShader());
 }
 
@@ -129,3 +129,4 @@ Simulation.prototype.draw = function() {
 }
 
 new Simulation().simulate();
+
